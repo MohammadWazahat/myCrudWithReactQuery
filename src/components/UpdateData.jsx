@@ -23,6 +23,12 @@ const UpdateData = () => {
     console.log(user);
   };
 
+   const navigate = useNavigate();
+  const submitForm = async (e) => {
+    e.preventDefault();
+      navigate("/");
+  };
+
   const mutation = useMutation({
     mutationFn: (x) => {
       console.log(x);
@@ -71,12 +77,7 @@ const UpdateData = () => {
   // const { id } = useParams();
   // Create api
 
-  // const navigate = useNavigate();
-  // const submitForm = async (e) => {
-  //   e.preventDefault();
-  //   // await axios.patch(`http://localhost:3030/users/` + id, user);
-  //   // navigate("/");
-  // };
+ 
 
   // useEffect(() => {
   //   axios.get(`http://localhost:3030/users/` + id).then((res) => {
@@ -91,8 +92,8 @@ const UpdateData = () => {
       </div>
       <h2>Update your form</h2>
       <div>
-        {/* <form onSubmit={submitForm}> */}
-        <form>
+        <form onSubmit={submitForm}>
+        {/* <form> */}
           <label htmlFor="first_name">Enter First Name</label>
           <br />
           <input

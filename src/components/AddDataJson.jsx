@@ -1,6 +1,6 @@
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 
 const AddDataJson = () => {
@@ -11,18 +11,27 @@ const AddDataJson = () => {
     city: "",
   });
 
-  const navigate = useNavigate();
+  const handleSubmit = () => {
+    mutation.mutate({
+      first_name: values.first_name,
+      last_name: values.last_name,
+      gender: values.gender,
+      city: values.city,
+    });
+  };
 
+  const mutation = useMutation({
+    mutationFn: (x) => {
+      console.log(x);
+      return axios.post(`http://localhost:3030/users/`, x);
+    },
+  });
+
+  const navigate = useNavigate();
   const submitForm = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:3030/users", values)
-      .then((res) => {
-        console.log(res);
-        // hook to navigate back to the page
-        navigate("/");
-      })
-      .catch((err) => console.log(err));
+    // hook to navigate back to the page
+    navigate("/");
   };
 
   return (
@@ -37,6 +46,7 @@ const AddDataJson = () => {
       <h2>i will add data form</h2>
 
       <form onSubmit={submitForm}>
+        {/* <form> */}
         <label htmlFor="first_name">Enter First Name</label>
         <br />
         <input
@@ -73,7 +83,9 @@ const AddDataJson = () => {
           onChange={(e) => setValues({ ...values, city: e.target.value })}
         />
         <br />
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleSubmit}>
+          Add user
+        </button>
       </form>
     </div>
   );
