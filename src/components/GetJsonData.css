@@ -1,0 +1,38 @@
+.link{
+    background-color: #343232;
+    padding: 10px;
+    width:100px;
+}
+
+
+table thead {
+    border: 1px solid rgb(249, 205, 205); 
+}
+
+table thead tr {
+    border: 1px solid rgb(249, 205, 205); 
+
+}
+.headrow {
+   background-color: #340202;
+}
+.headrow td{
+    width:150px;
+    border: 1px solid rgb(249, 205, 205); 
+    padding: 10px;
+    background-color: #010414;
+    align-items: center;
+  
+}
+
+.bodyrow td{
+    width:150px;
+    border: 1px solid rgb(249, 205, 205); 
+    padding: 10px;
+    align-items: center;
+}
+
+table tbody tr {
+    border: 1px solid rgb(249, 205, 205); 
+
+}
