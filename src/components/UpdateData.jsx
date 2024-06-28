@@ -13,20 +13,11 @@ const UpdateData = () => {
     gender: "C",
     city: "D",
   };
-  const [user, setUser] = useState(users);
-  // console.log(user);
 
-  const inputChangeHandler = (e) => {
-    console.log(e.target.value)
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-    console.log(user);
-  };
-
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const submitForm = async (e) => {
     e.preventDefault();
-      navigate("/");
+    navigate("/");
   };
 
   const mutation = useMutation({
@@ -46,8 +37,18 @@ const UpdateData = () => {
     queryFn: fetchData,
   });
   // console.log(isLoading)
-  // console.log(data);
+  console.log(data);
   // console.log(error)
+  const [user, setUser] = useState(data);
+
+  console.log(user);
+
+  const inputChangeHandler = (e) => {
+    console.log(e.target.value);
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+    console.log(user);
+  };
 
   if (isLoading) {
     return <h3>loading ...</h3>;
@@ -66,18 +67,8 @@ const UpdateData = () => {
     });
   };
 
-
-
-
-
-
-
-
-
   // const { id } = useParams();
   // Create api
-
- 
 
   // useEffect(() => {
   //   axios.get(`http://localhost:3030/users/` + id).then((res) => {
@@ -93,7 +84,7 @@ const UpdateData = () => {
       <h2>Update your form</h2>
       <div>
         <form onSubmit={submitForm}>
-        {/* <form> */}
+          {/* <form> */}
           <label htmlFor="first_name">Enter First Name</label>
           <br />
           <input

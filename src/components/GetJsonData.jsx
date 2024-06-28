@@ -2,12 +2,27 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./GetJsonData.css";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const GetJsonData = () => {
+  const mutation = useMutation({
+    mutationFn: (x) => {
+      console.log(x);
+      const confirm = window.confirm("would you like to delete the user");
+      if (confirm) {
+        return axios
+          .delete(`http://localhost:3030/users/` + x)
+          .then((res) => {
+            location.reload();
+          })
+          .catch((err) => console.log(err));
+      }
+    },
+  });
+
   const fetchData = async () => {
-        const resp = await fetch("http://localhost:3030/users");
-    return resp.json() ;
+    const resp = await fetch("http://localhost:3030/users");
+    return resp.json();
   };
 
   const { data, error, isLoading } = useQuery({
@@ -23,58 +38,12 @@ const GetJsonData = () => {
   }
 
   if (error) {
-    return <>
-      <h3>error</h3>
-      {/* <div>
-        <Link to="/">user list</Link>
-      </div> */}
-    </>;
+    return <h3>error</h3>;
   }
 
-  // const [myUser, setMyUser] = useState();
-  // if (!isLoading) {
-  //   setMyUser(myUser);
-  //   console.log(myUser);
-  // }
-
-  // const a = {
-  //   newdata : data ,
-  // }
-  // console.log(a)
-
-  // console.log(myUser)
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       const res = await axios.get("http://localhost:3030/users");
-  //     const data = await res.json();
-  //     console.log(data)
-
-  //     };
-  //     // console.log(fetchData())
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const res = await axios.get("http://localhost:3030/users");
-  //     setMyUser(res.data);
-  //   };
-  //   fetchData();
-  // }, []);
-
-  // console.log(myUser);
-
-  const handleDelete = (id) => {
-    // window.confirm ask for confirmation of deletion
-    const confirm = window.confirm("would you like to delete the user");
-    if (confirm) {
-      axios
-        .delete(`http://localhost:3030/users/` + id)
-        .then((res) => {
-          location.reload(); // reload us to the same page
-        })
-        .catch((err) => console.log(err));
-    }
-    console.log(id);
+  const handleDelete = (x) => {
+    console.log(x);
+    mutation.mutate(x);
   };
 
   return (

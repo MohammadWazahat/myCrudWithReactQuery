@@ -12,7 +12,7 @@ const ReadSingleData = () => {
   };
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ["myUser" , id],
+    queryKey: ["myUser", id],
     queryFn: fetchData,
   });
   // console.log(isLoading)
@@ -24,36 +24,16 @@ const ReadSingleData = () => {
   }
 
   if (error) {
-    return (
-      <>
-        <h3>error</h3>
-        {/* <div>
-    <Link to="/">user list</Link>
-  </div> */}
-      </>
-    );
+    return <h3>error</h3>;
   }
-
-  // const [data, setData] = useState([]);
-  // const { id } = useParams();
-  // console.log(id);
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:3030/users/` + id)
-  //     .then((res) => {
-  //       setData(res.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
 
   return (
     <div>
       <div>
         <Link to="/">user list</Link>
       </div>
-      <div>
-        {data.first_name} {data.last_name}
-      </div>
+      <div>{data.first_name}</div>
+      <div>{data.last_name}</div>
       <div>{data.gender}</div>
       <div>{data.city}</div>
     </div>
